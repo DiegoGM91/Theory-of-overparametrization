@@ -1,4 +1,4 @@
-# Theory of overparametrization in quantum neural networks
+# Theory of overparametrization in QNNS
 
 ## 1. System requirements
 
@@ -10,13 +10,13 @@
 
 ### Software dependencies
 
-Pyhton 
+- Pyhton 
 
-qibo==1.
+- qibo==1.
 
-numpy==
+- numpy==
 
-tensorflow==2.
+- tensorflow==2.
 
 ### Non-standard hardware required
 
@@ -28,11 +28,11 @@ No
 
 The Python package `qibo` can be installed using `pip`:
 
-```pip instal qibo==1.
 ```
-This will install all the required dependencies.
+pip instal qibo==1.
+```
 
-Then, you need to download the `.py` files in the folder `scr`.
+This will install all the required dependencies. Then, you need to download the `.py` files in the folder `scr` of this repository.
 
 ### Typical instalation time in a desktop computer
 
