@@ -1,4 +1,4 @@
-# Theory of overparametrization in QNNS
+# Theory of overparametrization in QNNs
 
 ## 1. System requirements
 
@@ -41,7 +41,7 @@ This will install all the required dependencies. Then, you need to download the 
 
 ### Instructions to run on data
 
-If you want to run an instance of a Variational Quantum Eigensolver on the transverse field Ising model using a Hamiltonian variational ansatz, you can run the `example.py`, with the following command:
+If you want to run an instance of a Variational Quantum Eigensolver on the transverse field Ising model using a Hamiltonian variational ansatz, you can open a terminal, go to the folder containing the `scr` folder, and run the `example.py`, with the following command:
 
 ```
 python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --nthreads 1
