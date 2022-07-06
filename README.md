@@ -1,19 +1,21 @@
-# Theory-of-overparametrization
+# Theory of overparametrization in quantum neural networks
 
 ## 1. System requirements
 
 ### Operating systems
 
-Linux
-Mac
-Windows
+- Linux
+- Mac
+- Windows
 
 ### Software dependencies
 
 Pyhton 
 
 qibo==1.
+
 numpy==
+
 tensorflow==2.
 
 ### Non-standard hardware required
