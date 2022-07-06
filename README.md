@@ -41,24 +41,35 @@ This will install all the required dependencies. Then, you need to download the 
 
 ### Instructions to run on data
 
-If you want to run an instance of a Variational Quantum Eigensolver on the transverse field Ising model using a Hamiltonian variational ansatz, you can open a terminal, go to the folder containing the `scr` folder, and run the `example.py`, with the following command:
+If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing the `scr` folder, and run the `example.py` file, with the following command:
 
 ```
-python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --nthreads 1
+python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --lambda 1.1 --nthreads 1
 ```
 
-The arguments are `nqubits (int)`: number of qubits, `nlayers (int)`: number of layers, `steps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `lambda (float)`: strength of the tansverse field, default=1.
+The arguments are:
+
+`nqubits (int)`: number of qubits.
+
+`nlayers (int)`: number of layers.
+
+`steps (int)`: maximum number of allowed optimization steps for the Adam algorithm.
+
+`lambda (float)`: strength of the tansverse field, `default==1`.
+
+`nthreads (int)`: number of threads used to simulate the quantum circuits (it must not be larger than the number of logical cores of the CPU), `default==1`
 
 
 ### Expected output
 
 The expected output is a tuple with:
 
-i) `(int)` energy of the state (i.e. value of the cost function)
+i) `(float)` energy of the state (i.e. value of the cost function)
 
 ii) `(qibo.state)` final quantum state as an state vector object from `qibo`
 
-iii) `(numpy.ndarray)`
+iii) `(numpy.ndarray:float)` energies during the optimization process
+
 
 ### Expected runtime for demo on a desktop computer
 
@@ -66,6 +77,8 @@ iii) `(numpy.ndarray)`
 ## 4. Instructions for use
 
 ### How to run the software on your data
+
+To run this software, 
 
 ### Reproduction instructions
 
