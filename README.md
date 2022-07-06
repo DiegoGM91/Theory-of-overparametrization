@@ -1,14 +1,14 @@
 # Theory-of-overparametrization
 
-#1. System requirements
+# 1. System requirements
 
-#Operating systems
+# Operating systems
 
 Linux
 Mac
 Windows
 
-#Software dependencies
+# Software dependencies
 
 Pyhton 
 
@@ -16,13 +16,13 @@ qibo==1.
 numpy==
 tensorflow==2.
 
-#Non-standard hardware required
+# Non-standard hardware required
 
 No
 
-#2. Installation guide
+# 2. Installation guide
 
-##Instructions
+## Instructions
 
 The Python package `qibo` can be installed using `pip`:
 
@@ -32,21 +32,21 @@ This will install all the required dependencies.
 
 Then, you need to download the `.py` files in the folder `scr`.
 
-##Typical instalation time in a desktop computer
+## Typical instalation time in a desktop computer
 
 
-#3. Demo
+# 3. Demo
 
-#Instructions to run on data
+# Instructions to run on data
 
-#Expected output
+# Expected output
 
-#Expected runtime for demo on a desktop computer
+# Expected runtime for demo on a desktop computer
 
-#4. Instructions for use
+# 4. Instructions for use
 
-#How to run the software on your data
+# How to run the software on your data
 
-#Reproduction instructions
+# Reproduction instructions
 
 
