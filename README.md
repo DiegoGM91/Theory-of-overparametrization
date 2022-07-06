@@ -10,13 +10,13 @@
 
 ### Software dependencies
 
-- Pyhton 
+- `Pyhton>=3.6`
 
-- qibo==1.
+- `qibo==1.`
 
-- numpy==
+- `numpy==`
 
-- tensorflow==2.
+- `tensorflow==2.`
 
 ### Non-standard hardware required
 
@@ -53,16 +53,16 @@ The arguments are:
 
 `nlayers (int)`: number of layers.
 
-`steps (int)`: maximum number of allowed optimization steps for the Adam algorithm.
+`steps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `default=3000`.
 
 `lambda (float)`: strength of the tansverse field, `default==1`.
 
-`nthreads (int)`: number of threads used to simulate the quantum circuits (it must not be larger than the number of logical cores of the CPU), `default==1`
+`nthreads (int)`: number of threads used to simulate the quantum circuits (it must not be larger than the number of logical cores of the CPU), `default==1`.
 
 
 ### Expected output
 
-The expected output is a tuple with:
+The expected output is a tuple containing:
 
 i) `(float)` energy of the state (i.e. value of the cost function)
 
