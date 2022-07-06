@@ -41,9 +41,27 @@ This will install all the required dependencies. Then, you need to download the 
 
 ### Instructions to run on data
 
+If you want to run an instance of a Variational Quantum Eigensolver on the transverse field Ising model using a Hamiltonian variational ansatz, you can run the `example.py`, with the following command:
+
+```
+python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --nthreads 1
+```
+
+The arguments are `nqubits (int)`: number of qubits, `nlayers (int)`: number of layers, `steps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `lambda (float)`: strength of the tansverse field, default=1.
+
+
 ### Expected output
 
+The expected output is a tuple with:
+
+i) `(int)` energy of the state (i.e. value of the cost function)
+
+ii) `(qibo.state)` final quantum state as an state vector object from `qibo`
+
+iii) `(numpy.ndarray)`
+
 ### Expected runtime for demo on a desktop computer
+
 
 ## 4. Instructions for use
 
