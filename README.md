@@ -12,7 +12,7 @@
 
 - `Pyhton>=3.6`
 
-- `qibo==1.`
+- `qibo==0.1.6`
 
 - `numpy==`
 
@@ -29,7 +29,7 @@ No
 The Python package `qibo` can be installed using `pip`:
 
 ```
-pip instal qibo==1.
+pip instal qibo==0.1.6
 ```
 
 This will install all the required dependencies. Then, you need to download the `.py` files in the folder `scr` of this repository.
@@ -41,7 +41,7 @@ This will install all the required dependencies. Then, you need to download the 
 
 ### Instructions to run on data
 
-If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing the `scr` folder, and run the `example.py` file, with the following command:
+If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing this repository, and run the `example.py` file, with the following command:
 
 ```
 python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --lambda 1.1 --nthreads 1
@@ -64,11 +64,12 @@ The arguments are:
 
 The expected output is a tuple containing:
 
-i) `(float)` energy of the state (i.e. value of the cost function)
+i) `(numpy.ndarray:float)` energies during the optimization process
 
 ii) `(qibo.state)` final quantum state as an state vector object from `qibo`
 
-iii) `(numpy.ndarray:float)` energies during the optimization process
+iii) `(numpy.ndarray:float)` optimal angles found for the variational quantum circuit
+
 
 
 ### Expected runtime for demo on a desktop computer
@@ -78,8 +79,35 @@ iii) `(numpy.ndarray:float)` energies during the optimization process
 
 ### How to run the software on your data
 
-To run this software, 
+There are three main classes in this software, each corresponding to an example shown in the paper, namely:
+
+- `HVA_Ising`:
+
+- `HEA_QAQC`:
+
+- `HEA_Autoencoder`
+
+In order to intialize the classes:
+
+- `HVA_Ising()`
+
+- `HEA_QAQC()`
+
+- `HEA_Autoencoder()`
+
+Once initialized, if you want to run a minimization using the Adam algorithm:
+
+- 
+
+This will return a tuple with
+
+-
+
+-
+
 
 ### Reproduction instructions
+
+TBA
 
 
