@@ -86,7 +86,7 @@ ii) `(numpy.ndarray:float)` optimal angles found for the variational quantum cir
 
 ### Expected runtime for demo on a desktop computer
 
-5 minutes for an instance with 6 qubits, 6 layers, periodic boundary conditions and 3000 optimization steps.
+5 minutes for an instance with 6 qubits, 6 layers and 3000 optimization steps.
 
 ## 4. Instructions for use
 
