@@ -149,14 +149,26 @@ Once initialized, if you want to run a minimization using the Adam algorithm:
 
 where:
 
-`optimizer (str)`: optimizer used 
+`optimizer (str)`: optimizer used for the minimization, `default==Adam`.
+
+`options (dic)`: 
 
 
 This will return a tuple with
 
--
+- `(float)`: final energy.
 
--
+- `(numpy.ndarray:float)`: optimal angles found for the variational quantum circuit.
+
+If you want to access the values of energies found during the optimization process, you can type:
+
+```
+hva.loss_record
+
+hea.loss_record
+
+autoencoder.loss_record
+```
 
 
 ### Reproduction instructions
