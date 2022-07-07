@@ -12,9 +12,13 @@ This repository contains the necessary code to reproduce all the numerical exper
 
 ### Software dependencies
 
-- `Pyhton>=3.6 and < 3.8`
+- `Pyhton>=3.7`
 
 - `qibo==0.1.6`
+
+- `tensorflow>=2.4.1`
+
+- (Optional) `qibojit==0.0.1`
 
 
 ### Non-standard hardware required
@@ -31,11 +35,23 @@ The Python package `qibo` can be installed using `pip`:
 pip instal qibo==0.1.6
 ```
 
-This will install all the required dependencies. Then, you need to download the `.py` files in the folder `scr` of this repository.
+This will install all the required dependencies, execpt for `tensorflow`, which you can install using
+
+```
+pip install tensorflow
+```
+
+If you want to also install the fast `qibojit` backend that we used for the computation of the quantum Fisher information and Hessian matrices, use
+
+```
+pip install qibojit==0.0.1
+```
+
+Then, you need to download the `.py` files in the folder `scr` of this repository.
 
 ### Typical instalation time in a desktop computer
 
-1-2 minutes
+1 minute
 
 ## 3. Demo
 
@@ -64,20 +80,19 @@ The arguments are:
 
 The expected output is a tuple containing:
 
-i) `(numpy.ndarray:float)` energies during the optimization process
+i) `(numpy.ndarray:float)` residual energies (i.e. differences with the exact ground state energy) during the optimization process
 
-ii) `(qibo.state)` final quantum state as an state vector object from `qibo`
-
-iii) `(numpy.ndarray:float)` optimal angles found for the variational quantum circuit
+ii) `(numpy.ndarray:float)` optimal angles found for the variational quantum circuit
 
 
 
 ### Expected runtime for demo on a desktop computer
 
+5 minute for an instance with 6 qubits, 6 layers and periodic boundary conditions.
 
 ## 4. Instructions for use
 
-### How to run the software on your data
+### How to run the software
 
 There are three main classes in this software, each corresponding to an example shown in the paper and each implemented on a different `.py` file, namely:
 
@@ -153,7 +168,7 @@ where:
 
 `optimizer (str)`: optimizer used for the minimization, `default==sgd` which stands for stochastic gradient descent.
 
-`options (dic)`: dictionary with options accepeted by the optimizer. For the `sgd` algorithms, we use: `'optimizer':Adam`, `'learning_rate': 1e-2`, `'nepochs':2000`, `'nmessage': 100`.
+`options (dic)`: dictionary with options accepeted by the optimizer. For the `sgd` algorithms, we use by default: `'optimizer':Adam`, `'learning_rate': 1e-2`, `'nepochs':2000`, `'nmessage': 100`.
 
 
 This will return a tuple with
