@@ -107,8 +107,17 @@ where:
 - `HEA_QAQC`
 ```
 from hea.py import HEA_QAQC
-HEA_QAQC()
+HEA_QAQC(nqubits, nlayers, seed)
 ```
+
+where:
+
+`nqubits (int)`: number of qubits.
+
+`nlayers (int)`: number of layers of the circuit, `default==1`.
+
+`seed (int)`: random seed to generate the Haar random unitary, used for reproducibility, `default==1`.
+
 
 - `HEA_Autoencoder()`
 
