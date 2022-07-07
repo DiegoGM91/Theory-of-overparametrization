@@ -79,7 +79,7 @@ iii) `(numpy.ndarray:float)` optimal angles found for the variational quantum ci
 
 There are three main classes in this software, each corresponding to an example shown in the paper and each implemented on a different `.py` file, namely:
 
-- `HVA_Ising`: implements a VQE using a Hamiltonian Variational Ansatz applyed to the transverse field Ising model.
+- `HVA_Ising`: implements a VQE using a Hamiltonian Variational Ansatz applied to the transverse field Ising model.
 
 - `HEA_QAQC`: implements a compilation of a Haar random unitary matrix using a Hardware Efficient Ansatz and the Quantum Assisted Quantum Compilng algorithm.
 
@@ -91,7 +91,7 @@ In order to intialize the classes:
 ```
 from hva.py import HVA_Ising
 
-HVA_Ising(nqubits, nlayers, lambda, periodic)
+hva = HVA_Ising(nqubits, nlayers, lambda, periodic)
 ```
 
 where:
@@ -107,7 +107,8 @@ where:
 - `HEA_QAQC`
 ```
 from hea.py import HEA_QAQC
-HEA_QAQC(nqubits, nlayers, seed)
+
+hea = HEA_QAQC(nqubits, nlayers, seed)
 ```
 
 where:
@@ -119,11 +120,37 @@ where:
 `seed (int)`: random seed to generate the Haar random unitary, used for reproducibility, `default==1`.
 
 
-- `HEA_Autoencoder()`
+- `HEA_Autoencoder`
+
+```
+from autoencoder.py import Autoencoder
+
+autoencoder = Autoencoder(nqubits, nlayers, trash_space, training_states)
+```
+
+where:
+
+`nqubits (int)`: number of qubits.
+
+`nlayers (int)`: number of layers of the circuit.
+
+`trash_space (int)`: number of qubits used as trashed space, `default==2`.
+
+`training_states (list:int)`: ids of the states from the training set used, `default==[0,5,12,2}`.
+
 
 Once initialized, if you want to run a minimization using the Adam algorithm:
 
-- 
+- `hva.minimize(optimizer, options)`
+
+- `hea.minimize(optimizer, options)`
+
+- `autoencoder.minimize(optimizer, options)`
+
+where:
+
+`optimizer (str)`: optimizer used 
+
 
 This will return a tuple with
 
