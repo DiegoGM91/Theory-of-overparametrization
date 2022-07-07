@@ -88,7 +88,7 @@ ii) `(numpy.ndarray:float)` optimal angles found for the variational quantum cir
 
 ### Expected runtime for demo on a desktop computer
 
-5 minute for an instance with 6 qubits, 6 layers and periodic boundary conditions.
+5 minutes for an instance with 6 qubits, 6 layers, periodic boundary conditions and 3000 optimization steps.
 
 ## 4. Instructions for use
 
@@ -168,7 +168,7 @@ where:
 
 `optimizer (str)`: optimizer used for the minimization, `default==sgd` which stands for stochastic gradient descent.
 
-`options (dic)`: dictionary with options accepeted by the optimizer. For the `sgd` algorithms, we use by default: `'optimizer':Adam`, `'learning_rate': 1e-2`, `'nepochs':2000`, `'nmessage': 100`.
+`options (dic)`: dictionary with options accepeted by the optimizer. For the `sgd` algorithms, we use by default: `'optimizer':Adam`, `'learning_rate': 1e-2`, `'nepochs':3000`, `'nmessage': 1000`.
 
 
 This will return a tuple with
