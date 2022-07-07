@@ -10,13 +10,10 @@
 
 ### Software dependencies
 
-- `Pyhton>=3.6`
+- `Pyhton>=3.6 and < 3.8`
 
 - `qibo==0.1.6`
-
-- `numpy==`
-
-- `tensorflow==2.`
+.
 
 ### Non-standard hardware required
 
@@ -36,6 +33,7 @@ This will install all the required dependencies. Then, you need to download the 
 
 ### Typical instalation time in a desktop computer
 
+1-2 minutes
 
 ## 3. Demo
 
