@@ -141,17 +141,17 @@ where:
 
 Once initialized, if you want to run a minimization using the Adam algorithm:
 
-- `hva.minimize(optimizer, options)`
+- `result = hva.minimize(optimizer, options)`
 
-- `hea.minimize(optimizer, options)`
+- `result = hea.minimize(optimizer, options)`
 
-- `autoencoder.minimize(optimizer, options)`
+- `result = autoencoder.minimize(optimizer, options)`
 
 where:
 
-`optimizer (str)`: optimizer used for the minimization, `default==Adam`.
+`optimizer (str)`: optimizer used for the minimization, `default==sgd` which stands for stochastic gradient descent.
 
-`options (dic)`: 
+`options (dic)`: dictionary with options accepeted by the optimizer. For the `sgd` algorithms, we use: `'optimizer':Adam`, `'learning_rate': 1e-2`, `'nepochs':2000`, `'nmessage': 100`.
 
 
 This will return a tuple with
