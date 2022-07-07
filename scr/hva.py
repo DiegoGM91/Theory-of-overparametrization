@@ -9,12 +9,12 @@ from qibo.models import Circuit
 from qibo import gates
 from qibo.optimizers import optimize
 from qibo.hamiltonians import TFIM, Hamiltonian
-qibo.set_backend("matmuleinsum") # qibo version==0.1.5
+qibo.set_backend("tensorflow") # qibo version==0.1.6
 qibo.set_device("/CPU:0")
 qibo.set_threads(1)
 
 
-class VHA_Ising:
+class HVA_Ising:
     """
     Class for the Variational Hamiltonian Ansatz for the Transverse Field Ising Model.
     """

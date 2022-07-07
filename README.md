@@ -57,10 +57,10 @@ Then, you need to download the `.py` files in the folder `scr` of this repositor
 
 ### Instructions to run on data
 
-If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing this repository, and run the `example.py` file, with the following command:
+If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model with periodic boundary conditions using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing this repository, and run the `example.py` file, with the following command:
 
 ```
-python3 example.py --nqubits 6 --nlayers 6 --steps 2000 --lambda 1.1 --nthreads 1
+python3 example.py --nqubits 6 --nlayers 6 --nsteps 2000 --g 1.1
 ```
 
 The arguments are:
@@ -69,11 +69,9 @@ The arguments are:
 
 `nlayers (int)`: number of layers of the circuit.
 
-`steps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `default=3000`.
+`nsteps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `default=3000`.
 
-`lambda (float)`: strength of the tansverse field, `default==1`.
-
-`nthreads (int)`: number of threads used to simulate the quantum circuits (it must not be larger than the number of logical cores of the CPU), `default==1`.
+`g (float)`: strength of the tansverse field, `default==1`.
 
 
 ### Expected output
@@ -108,7 +106,7 @@ In order to intialize the classes:
 ```
 from hva.py import HVA_Ising
 
-hva = HVA_Ising(nqubits, nlayers, lambda, periodic)
+hva = HVA_Ising(nqubits, nlayers, g, periodic)
 ```
 
 where:
@@ -117,7 +115,7 @@ where:
 
 `nlayers (int)`: number of layers of the circuit, `default==1`.
 
-`lambda (float)`: strength of the transverse field, `default==1`.
+`g (float)`: strength of the transverse field, `default==1`.
 
 `periodic (bool)`: whether periodic or non-periodic boundary conditions apply, `default==True`.
 
@@ -173,11 +171,11 @@ where:
 
 This will return a tuple with
 
-- `(float)`: final energy.
+- `(float)`: final residual energy (ie. difference with the exact ground state energy).
 
 - `(numpy.ndarray:float)`: optimal angles found for the variational quantum circuit.
 
-If you want to access the values of energies found during the optimization process, you can type:
+If you want to access the values of residual energies found during the optimization process, you can type:
 
 ```
 hva.loss_record

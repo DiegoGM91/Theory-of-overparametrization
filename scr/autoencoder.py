@@ -8,7 +8,7 @@ import qibo
 from qibo.models import Circuit
 from qibo import gates
 from qibo.optimizers import optimize
-qibo.set_backend("matmuleinsum") # qibo version==0.1.5
+qibo.set_backend("tensorflow") # qibo version==0.1.6
 qibo.set_threads(1)
 
 
@@ -80,7 +80,7 @@ class Autoencoder:
         
         return loss    
       
-    def minimize(self, optimizer='sgd', options={'optimizer': 'Adam', 'learning_rate': 1e-2, 'nepochs':int(2e3), 'nmessage': 100}):
+    def minimize(self, optimizer='sgd', options={'optimizer': 'Adam', 'learning_rate': 1e-2, 'nepochs':int(3e3), 'nmessage': 1000}):
         """
         Optimize the varitational parameters.
         

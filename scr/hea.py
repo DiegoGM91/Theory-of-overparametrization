@@ -6,7 +6,7 @@ tf.config.threading.set_inter_op_parallelism_threads(1)
 tf.config.threading.set_intra_op_parallelism_threads(1)
 from scipy.stats import unitary_group
 import qibo
-qibo.set_backend("matmuleinsum") # qibo version==0.1.5
+qibo.set_backend("tensorflow") # qibo version==0.1.6
 qibo.set_threads(1)
 from qibo import gates
 from qibo.models import Circuit
