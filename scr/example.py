@@ -18,7 +18,9 @@ def main(nqubits, nlayers, nsteps, g):
     # We train the HVA
     print('Training HVA...')
     cost_function, optimal_angles = hva.minimize(options={'optimizer': 'Adam', 'learning_rate': 1e-2, 'nepochs':nsteps, 'nmessage': 100})
-
+    
+    print(f'The final residual energy is: {cost_function}')
+    print(f'The optimal angles for the circuit are: {optimal_angles}')
 
 if __name__ == "__main__":
     args = vars(parser.parse_args())

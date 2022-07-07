@@ -76,9 +76,9 @@ The arguments are:
 
 ### Expected output
 
-The expected output is a tuple containing:
+The expected output is a printed statement showing:
 
-i) `(numpy.ndarray:float)` residual energies (i.e. differences with the exact ground state energy) during the optimization process
+i) `(numpy.ndarray:float)` final residual energy (i.e. difference with the exact ground state energy)
 
 ii) `(numpy.ndarray:float)` optimal angles found for the variational quantum circuit
 
