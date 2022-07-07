@@ -13,7 +13,7 @@
 - `Pyhton>=3.6 and < 3.8`
 
 - `qibo==0.1.6`
-.
+
 
 ### Non-standard hardware required
 
@@ -49,7 +49,7 @@ The arguments are:
 
 `nqubits (int)`: number of qubits.
 
-`nlayers (int)`: number of layers.
+`nlayers (int)`: number of layers of the circuit.
 
 `steps (int)`: maximum number of allowed optimization steps for the Adam algorithm, `default=3000`.
 
@@ -77,19 +77,35 @@ iii) `(numpy.ndarray:float)` optimal angles found for the variational quantum ci
 
 ### How to run the software on your data
 
-There are three main classes in this software, each corresponding to an example shown in the paper, namely:
+There are three main classes in this software, each corresponding to an example shown in the paper and each implemented on a different `.py` file, namely:
 
-- `HVA_Ising`:
+- `HVA_Ising`: implements a VQE using a Hamiltonian Variational Ansatz applyed to the transverse field Ising model.
 
-- `HEA_QAQC`:
+- `HEA_QAQC`: implements a compilation of a unitary matrix using a Hardware Efficient Ansatz and the Quantum Assisted Quantum Compilng algorithm.
 
-- `HEA_Autoencoder`
+- `HEA_Autoencoder`: implements a quantum autoencoder using a Hardware Efficient Ansatz on a given training set.
 
 In order to intialize the classes:
 
-- `HVA_Ising()`
+- 
+```
+from hva.py import HVA_Ising
 
-- `HEA_QAQC()`
+HVA_Ising(nqubits, nlayers, lambda, periodic)
+```
+
+where:
+
+`nqubits (int)`: number of qubits.
+`nlayers (int)`: number of layers of the circuit, `default==1`.
+`lambda (float)`: strength of the transverse field, `default==1`.
+`periodic (bool)`: whether periodic or non-periodic boundary conditions apply, `default==True`.
+
+- 
+```
+from hea.py import HEA_QAQC
+HEA_QAQC()
+```
 
 - `HEA_Autoencoder()`
 
