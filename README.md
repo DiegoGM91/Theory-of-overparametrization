@@ -1,5 +1,7 @@
 # Theory of overparametrization in QNNs
 
+This repository contains the necessary code to reproduce all the numerical experiments presented in the manuscript ["Theory of overparametrization in quantum neural networks"](https://arxiv.org/abs/2109.11676).
+
 ## 1. System requirements
 
 ### Operating systems
@@ -136,7 +138,7 @@ where:
 
 `trash_space (int)`: number of qubits used as trashed space, `default==2`.
 
-`training_states (list:int)`: ids of the states from the training set used, `default==[0,5,12,2}`.
+`training_states (list:int)`: ids of the states from the training set used, `default==[0,5,12,2]`.
 
 
 Once initialized, if you want to run a minimization using the Adam algorithm:
