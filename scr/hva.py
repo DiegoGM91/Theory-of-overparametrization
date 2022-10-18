@@ -433,3 +433,83 @@ class HVA_Ising:
                 qfim[index_i][index_i] /= 2
             
         return -qfim / 8
+    
+    def qfim_noise_density(self, parameters, rows=None):
+        """
+        Compute the Quantum Fisher Information matrix of the ansatz evaluated at parameters, with noise and density matrices.
+        
+        Args:
+            parameters (numpy.1darray): values of the parameters at which the QFI matrix is evaluated.
+            rows (numpy.1darray): rows of the matrix to be computed (this argument is used to parallelized the com
+                                  the computation. If None, the full matrix is computed).
+            
+        Returns:
+            (numpy.2darray): QFI matrix.
+        """
+        if self.periodic:
+            # Correlate parameters
+            correlated_parameters =  []
+            for i in range(int(parameters.shape[0])):
+                correlated_parameters.extend(self.nqubits * [parameters[i]])
+            offset = len(correlated_parameters)
+            inverse_parameters = -np.array(correlated_parameters)
+            correlated_parameters = np.concatenate((correlated_parameters, inverse_parameters[::-1]))
+            sqrt_rho = sqrtm(np.array(self.vha()))
+            # Construct QFIM
+            nparams = 2*self.p
+            qfim = np.zeros(shape=(nparams, nparams))
+            if rows == None:
+                rows = range(nparams)
+            for index_i in rows:
+                for index_j in range(index_i, nparams):
+                    for qubit_i in range(self.nqubits):
+                        # Parameter shift
+                        correlated_parameters[offset + index_i*self.nqubits+qubit_i] += np.pi/2
+                        for qubit_j in range(self.nqubits):
+                            # Parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
+                            self.vha.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha())
+                            # Add contribution
+                            contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
+                            qfim[index_i][index_j] += contribution
+                            qfim[index_j][index_i] += contribution
+                            # Parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] -= np.pi
+                            self.vha.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha())
+                            # Add contribution
+                            contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
+                            qfim[index_i][index_j] -= contribution
+                            qfim[index_j][index_i] -= contribution
+                            # Revert parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
+                        # Parameter shift
+                        correlated_parameters[offset + index_i*self.nqubits+qubit_i] -= np.pi
+                        for qubit_j in range(self.nqubits):
+                            # Parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
+                            self.vha.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha())
+                            # Add contribution
+                            contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
+                            qfim[index_i][index_j] -= contribution
+                            qfim[index_j][index_i] -= contribution
+                            # Parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] -= np.pi
+                            self.vha.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha())
+                            # Add contribution
+                            contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
+                            qfim[index_i][index_j] += contribution
+                            qfim[index_j][index_i] += contribution
+                            # Revert parameter shift
+                            correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
+                        # Revert parameter shift
+                        correlated_parameters[offset + index_i*self.nqubits+qubit_i] += np.pi/2
+                # Correct the double addition of the diagonal contributions
+                qfim[index_i][index_i] /= 2
+        else:
+            raise NotImplementedError('Noisy qfim not implemented for open boundary conditions.')
+
+        return -qfim / 8
