@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import numpy as np
+from scipy.linalg import sqrtm
 import tensorflow as tf
 tf.config.threading.set_inter_op_parallelism_threads(1)
 tf.config.threading.set_intra_op_parallelism_threads(1)
@@ -9,7 +10,7 @@ from qibo.models import Circuit
 from qibo import gates
 from qibo.optimizers import optimize
 from qibo.hamiltonians import TFIM, Hamiltonian
-qibo.set_backend("tensorflow") # qibo version==0.1.6
+qibo.set_backend("tensorflow") # qibo version==0.1.6 # switch to "qibojit" when computing hessian or qfim
 qibo.set_device("/CPU:0")
 qibo.set_threads(1)
 
@@ -281,7 +282,7 @@ class HVA_Ising:
     
     def qfim(self, parameters, rows=None):
         """
-        Compute the Quantum Fisher Information matrix of the ansatz evaluated at parameters.
+        Compute the Quantum Fisher Information Matrix of the ansatz evaluated at parameters.
         
         Args:
             parameters (numpy.1darray): values of the parameters at which the QFI matrix is evaluated.
@@ -434,9 +435,10 @@ class HVA_Ising:
             
         return -qfim / 8
     
-    def qfim_noise_density(self, parameters, rows=None):
+    def qfim_noisy(self, parameters, rows=None):
         """
-        Compute the Quantum Fisher Information matrix of the ansatz evaluated at parameters, with noise and density matrices.
+        Compute the Quantum Fisher Information Matrix of the ansatz evaluated at parameters, with local depolarizing 
+        noise after each gate using density matrices.
         
         Args:
             parameters (numpy.1darray): values of the parameters at which the QFI matrix is evaluated.
