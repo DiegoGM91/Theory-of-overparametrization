@@ -20,13 +20,15 @@ class HVA_Ising:
     Class for the Variational Hamiltonian Ansatz for the Transverse Field Ising Model.
     """
 
-    def __init__(self, nqubits, p=1, g=1, periodic=True):
+    def __init__(self, nqubits, p=1, g=1, periodic=True, noise=False, noise_levels=None):
         """
         Args:
             nqubits (int): number of qubits.
             p (int): depth parameter of the ansatz.
             g (float): strength of the transverse field.
             periodic (bool): whether periodic boundary conditions apply or not.
+            noise (bool): whether Pauli noise channels are applied after each gate of the circuit.
+            noise_levels (tuple:float): probabilities (strengths) of each Pauli noise channel.
         """
         self.nqubits = nqubits
         self.periodic = periodic
@@ -35,11 +37,17 @@ class HVA_Ising:
         if periodic:
             self.hamiltonian = TFIM(nqubits, h=g)
         else:
-            self.hamiltonian = self.non_periodic_ham(g)
+            self.hamiltonian = self._non_periodic_ham(g)
         # Ground state energy
-        self.exact_energy = np.real(self.hamiltonian.eigenvalues().numpy()[0])
+        if qibo.get_backend() == 'tensorflow':
+            self.exact_energy = np.real(self.hamiltonian.eigenvalues().numpy()[0])
+        else:
+            self.exact_energy = self.hamiltonian.eigenvalues()[0]
         # Circuit
-        self.vha = Circuit(nqubits)
+        if noise:
+            self.vha = Circuit(nqubits, density_matrix=True)
+        else:
+            self.vha = Circuit(nqubits)
         self.p = p
         for q in range(nqubits):
             self.vha.add(gates.H(q))
@@ -54,8 +62,13 @@ class HVA_Ising:
                 self.vha.add(gates.CNOT(0, nqubits-1))
             for q in range(nqubits):
                 self.vha.add(gates.RX(q, theta=0))
+        # Add noise
+        if noise:
+            self.vha_qfim = self.vha + self.vha.invert()
+            self.vha = self.vha.with_noise(noise_levels) 
+            self.vha_qfim = self.vha_qfim.with_noise(noise_levels)
                 
-    def non_periodic_ham(self, h):
+    def _non_periodic_ham(self, h):
         """
         TFIM Hamiltonian with non-periodic boundary conditions.
         
@@ -456,7 +469,7 @@ class HVA_Ising:
             offset = len(correlated_parameters)
             inverse_parameters = -np.array(correlated_parameters)
             correlated_parameters = np.concatenate((correlated_parameters, inverse_parameters[::-1]))
-            sqrt_rho = sqrtm(np.array(self.vha()))
+            sqrt_rho = sqrtm(np.array(self.vha_qfim()))
             # Construct QFIM
             nparams = 2*self.p
             qfim = np.zeros(shape=(nparams, nparams))
@@ -470,16 +483,16 @@ class HVA_Ising:
                         for qubit_j in range(self.nqubits):
                             # Parameter shift
                             correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
-                            self.vha.set_parameters(correlated_parameters)
-                            sigma = np.array(self.vha())
+                            self.vha_qfim.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha_qfim())
                             # Add contribution
                             contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
                             qfim[index_i][index_j] += contribution
                             qfim[index_j][index_i] += contribution
                             # Parameter shift
                             correlated_parameters[offset + index_j*self.nqubits+qubit_j] -= np.pi
-                            self.vha.set_parameters(correlated_parameters)
-                            sigma = np.array(self.vha())
+                            self.vha_qfim.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha_qfim())
                             # Add contribution
                             contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
                             qfim[index_i][index_j] -= contribution
@@ -491,16 +504,16 @@ class HVA_Ising:
                         for qubit_j in range(self.nqubits):
                             # Parameter shift
                             correlated_parameters[offset + index_j*self.nqubits+qubit_j] += np.pi/2
-                            self.vha.set_parameters(correlated_parameters)
-                            sigma = np.array(self.vha())
+                            self.vha_qfim.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha_qfim())
                             # Add contribution
                             contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
                             qfim[index_i][index_j] -= contribution
                             qfim[index_j][index_i] -= contribution
                             # Parameter shift
                             correlated_parameters[offset + index_j*self.nqubits+qubit_j] -= np.pi
-                            self.vha.set_parameters(correlated_parameters)
-                            sigma = np.array(self.vha())
+                            self.vha_qfim.set_parameters(correlated_parameters)
+                            sigma = np.array(self.vha_qfim())
                             # Add contribution
                             contribution = np.trace(sqrtm(np.dot(sqrt_rho, np.dot(sigma, sqrt_rho))))**2
                             qfim[index_i][index_j] += contribution
