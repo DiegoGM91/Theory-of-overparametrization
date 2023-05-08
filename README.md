@@ -1,8 +1,6 @@
 # Theory of overparametrization in QNNs
 
-<div style="text-align: justify">
 This repository contains the necessary code to reproduce all the numerical experiments presented in the manuscript ["Theory of overparametrization in quantum neural networks"](https://arxiv.org/abs/2109.11676), along with the raw data employed in the paper.
-</div>
 
 ## 1. System requirements
 
@@ -59,9 +57,7 @@ Then, you need to download the `.py` files in the folder `scr` of this repositor
 
 ### Instructions to run on data
 
-<div style="text-align: justify">
 If you want to run an instance of a Variational Quantum Eigensolver (VQE) on the transverse field Ising model with periodic boundary conditions using a Hamiltonian Variational Ansatz (HVA), you can open a terminal, go to the folder containing this repository, and run the `example.py` file, with the following command:
-</div>
 
 ```
 python3 example.py --nqubits 6 --nlayers 6 --nsteps 2000 --g 1.1
@@ -96,7 +92,6 @@ ii) `(numpy.ndarray:float)` optimal angles found for the variational quantum cir
 
 ### How to run the software
 
-<div style="text-align: justify">
 There are three main classes in this software, each corresponding to an example shown in the paper and each implemented on a different `.py` file, namely:
 
 - `HVA_Ising`: implements a VQE using a Hamiltonian Variational Ansatz applied to the transverse field Ising model.
@@ -181,7 +176,7 @@ This will return a tuple with
 - `(numpy.ndarray:float)`: optimal angles found for the variational quantum circuit.
 
 If you want to access the values of residual energies found during the optimization process, you can type:
-</div>
+
 
 ```
 hva.loss_record
