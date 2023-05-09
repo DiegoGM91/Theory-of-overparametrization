@@ -1,5 +1,8 @@
 # Theory of overparametrization in QNNs
 
+[![DOI](https://zenodo.org/badge/511268812.svg)](https://zenodo.org/badge/latestdoi/511268812)
+
+
 This repository contains the necessary code to reproduce all the numerical experiments presented in the manuscript ["Theory of overparametrization in quantum neural networks"](https://arxiv.org/abs/2109.11676), along with the raw data employed in the paper.
 
 ## 1. System requirements
